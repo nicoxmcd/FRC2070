@@ -70,13 +70,13 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     double speed = -stick.getRawAxis(1) * 0.6;
-    double turn = stick.getRawAxis(2) * 0.6;
+    double turn = stick.getRawAxis(0) * 0.6;
 
     double left = speed + turn;
     double right = speed - turn;
 
     leftMotor.set(left);
-    rightMotor.set(-right);
+    rightMotor.set(right);
     // m_robotDrive.arcadeDrive(m_stick.getY(), m_stick.getX());
   }
 
