@@ -7,10 +7,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+// import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-
-import edu.wpi.first.wpilibj.PWMTalonSRX;
+// import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
@@ -21,7 +22,9 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * directory.
  */
 public class Robot extends TimedRobot {
-  private final DifferentialDrive robotDrive = new DifferentialDrive(new PWMTalonSRX(0), new PWMTalonSRX(1));
+  private WPI_TalonSRX _left = new WPI_TalonSRX(0);
+  private WPI_TalonSRX _right = new WPI_TalonSRX(1);
+  private DifferentialDrive robotDrive = new DifferentialDrive(_left, _right);
   private final Joystick stick = new Joystick(0);
   private final Timer timer = new Timer();
 
@@ -67,6 +70,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    // double stick_left = stick.getRawAxis(0);
+    // double stick_right = stick.getRawAxis(1); 
+    // _right.set(ControlMode.PercentOutput, stick);
+    // _left.set(ControlMode.PercentOutput, stick);
     robotDrive.arcadeDrive(stick.getY(), stick.getX());
   }
 
