@@ -7,13 +7,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-// import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 // import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-
+// import edu.wpi.first.wpilibj.XboxController;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -26,6 +27,7 @@ public class Robot extends TimedRobot {
   private WPI_TalonSRX _right = new WPI_TalonSRX(1);
   private DifferentialDrive robotDrive = new DifferentialDrive(_left, _right);
   private final Joystick stick = new Joystick(0);
+  // private final XboxController xbox = new XboxController(0);
   private final Timer timer = new Timer();
 
   /**
@@ -70,11 +72,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    // double stick_left = stick.getRawAxis(0);
-    // double stick_right = stick.getRawAxis(1); 
-    // _right.set(ControlMode.PercentOutput, stick);
-    // _left.set(ControlMode.PercentOutput, stick);
-    robotDrive.arcadeDrive(stick.getY(), stick.getX());
+     robotDrive.tankDrive(stick.getRawAxis(1), stick.getRawAxis(5));
+
+    // robotDrive.arcadeDrive(stick.getY(), stick.getX());
   }
 
   /**
