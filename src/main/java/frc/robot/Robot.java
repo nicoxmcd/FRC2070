@@ -7,8 +7,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 // import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -72,7 +70,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-     robotDrive.tankDrive(stick.getRawAxis(1), stick.getRawAxis(5));
+    //hopefully halves the speed
+     robotDrive.tankDrive((stick.getRawAxis(1)*(-0.62)), (stick.getRawAxis(5))*(-0.6));
 
     // robotDrive.arcadeDrive(stick.getY(), stick.getX());
   }
