@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
     }
   }
 
-  /**
+  /** 
    * This function is called once each time the robot enters teleoperated mode.
    */
   @Override
@@ -103,6 +103,6 @@ public class Robot extends TimedRobot {
 //                 \/__/         \/__/         \/__/    
 // .---.  .--. .----. .--. Specifically the Programming Team:
 // `--. :: ,. :`--  ;: ,. :Nicole       Grace
-//   ,',': :: : ,',' : :: :Max          Luke
-//  '.'_ : :; : : :  : :; :Fatima       Vince
-// :____;`.__.' :_:  `.__.'Lizbeth      Yanako
+//   ,',': :: : ,',' : :: :Max          
+//  '.'_ : :; : : :  : :; :       
+// :____;`.__.' :_:  `.__.'      
