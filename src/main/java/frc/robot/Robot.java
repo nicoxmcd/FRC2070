@@ -93,15 +93,15 @@ public class Robot extends TimedRobot {
      /**This command controls the lift:
      hold down the y button, there is a 4 second delay in going up and down.
      Remember to reset after every match.**/
-     if (stick.getRawButton(0)){
+     if (stick.getRawButton(4)){
       _generator_lift.set(0.4);
      }
      //To reset lift after matches
-    if (stick.getRawButton(0) && stick.getRawButton(1)){
+    if (stick.getRawButton(0) && stick.getRawButton(4)){
       _generator_lift.set(-0.4);
     }
     //Set intake lift
-     if (stick.getRawButton(1)){
+     if (stick.getRawButton(3)){
       _intake_lift.set(0.4);
      }
 
@@ -109,11 +109,11 @@ public class Robot extends TimedRobot {
       _intake_lift.set(-0.4);
      }
     //Set intake motor speed
-     if (stick.getRawButton(6)){
+     if (stick.getRawButton(5)){
       _intake_powercell.set(0.6);
      }
 
-     if (stick.getRawButton(7)){
+     if (stick.getRawButton(6)){
       _intake_lift.set(-0.6);
      }
 
