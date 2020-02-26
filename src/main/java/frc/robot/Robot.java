@@ -9,28 +9,37 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.cameraserver.CameraServer;
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the TimedRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
- */
+// import edu.wpi.first.wpilibj.buttons.*;
+
+
+
 public class Robot extends TimedRobot {
   CameraServer server;
-  private WPI_TalonSRX _left = new WPI_TalonSRX(0);
-  private WPI_TalonSRX _right = new WPI_TalonSRX(1);
+  //Intake and Generator Initialization
+  private WPI_TalonSRX _intake_powercell = new WPI_TalonSRX(0);
+  private WPI_TalonSRX _generator_lift = new WPI_TalonSRX(1);
+  private WPI_TalonSRX _intake_lift = new WPI_TalonSRX(2);
+  //Drive Motor Initialization
+  private WPI_TalonSRX _right = new WPI_TalonSRX(3);
+  private WPI_TalonSRX _left = new WPI_TalonSRX(4);
+  //Drivetrain Initialization
   private DifferentialDrive robotDrive = new DifferentialDrive(_left, _right);
+  //Joystick
   private final Joystick stick = new Joystick(0);
+  //Timer Initialization
   private final Timer timer = new Timer();
+  //Marker Initialization :)
+  public final String marker = "up";
 
-  /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
-   */
+/**
+* This next function is run when the robot is first started up and should be
+* used for any initialization code.
+*/
+
   @Override
   public void robotInit() {
     server = CameraServer.getInstance();
@@ -76,8 +85,42 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    //hopefully halves the speed
-     robotDrive.tankDrive((stick.getRawAxis(1)*(-0.6)), (stick.getRawAxis(5))*(-0.62));
+
+    /**Utilizes values initialized in class Robot
+    This command is the tankDrive, using the two TalonSRX motorcontrollers connected to the drive motors.**/
+     robotDrive.tankDrive((stick.getRawAxis(1)*(-0.62)), (stick.getRawAxis(5))*(-0.62));
+
+     /**This command controls the lift:
+     hold down the y button, there is a 4 second delay in going up and down.
+     Remember to reset after every match.**/
+     if (stick.getRawButton(0)){
+      _generator_lift.set(0.4);
+     }
+     //To reset lift after matches
+    if (stick.getRawButton(0) && stick.getRawButton(1)){
+      _generator_lift.set(-0.4);
+    }
+    //Set intake lift
+     if (stick.getRawButton(1)){
+      _intake_lift.set(0.4);
+     }
+
+     if (stick.getRawButton(2)){
+      _intake_lift.set(-0.4);
+     }
+    //Set intake motor speed
+     if (stick.getRawButton(6)){
+      _intake_powercell.set(0.6);
+     }
+
+     if (stick.getRawButton(7)){
+      _intake_lift.set(-0.6);
+     }
+
+
+
+     //button.whenHeld(New ExampleCommand());,
+     //button.whenReleased(new ExampleCommand());
 
     // robotDrive.arcadeDrive(stick.getY(), stick.getX());
   }
@@ -105,4 +148,4 @@ public class Robot extends TimedRobot {
 // `--. :: ,. :`--  ;: ,. :Nicole       Grace
 //   ,',': :: : ,',' : :: :Max          
 //  '.'_ : :; : : :  : :; :       
-// :____;`.__.' :_:  `.__.'      
+// :____;`.__.' :_:  `.__.'       
