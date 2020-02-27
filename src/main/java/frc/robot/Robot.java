@@ -79,7 +79,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
-    _right.setInverted(false);
+    _left.setInverted(false);
   }
 
   /**
@@ -91,48 +91,67 @@ public class Robot extends TimedRobot {
     /**Utilizes values initialized in class Robot
     This command is the tankDrive, using the two TalonSRX motorcontrollers connected to the drive motors.**/
     //  robotDrive.tankDrive((stick.getRawAxis(1)*(-0.62)), (stick.getRawAxis(5))*(-0.62));
-    _left.set(ControlMode.PercentOutput, stick.getRawAxis(1));
-    _right.set(ControlMode.PercentOutput, (stick.getRawAxis(5)*-1));
+    _left.set(ControlMode.PercentOutput, (stick.getRawAxis(1)*-1));
+    _right.set(ControlMode.PercentOutput, stick.getRawAxis(5));
+
      /**This command controls the lift:
      hold down the y button, there is a 4 second delay in going up and down.
      Remember to reset after every match.**/
-
-
-
      if (stick.getRawButtonPressed(4)){
       _generator_lift.set(ControlMode.PercentOutput, 0.6);
      }
+
+     if (stick.getRawButtonReleased(4)){
+      _generator_lift.set(ControlMode.PercentOutput, 0);
+     }
      
-     //To reset lift after matches
+     //To reset lift after matches, y and a buttons must be held at the same time
     if (stick.getRawButtonPressed(1) && stick.getRawButtonPressed(4)){
       _generator_lift.set(ControlMode.PercentOutput, -0.6);
     }
-    //Set intake lift
-     if (stick.getRawButtonPressed(3)){
-      _intake_lift.set(ControlMode.PercentOutput, 0.6);
-     }
 
-     if (stick.getRawButtonPressed(2)){
-      _intake_lift.set(ControlMode.PercentOutput, -0.7);
+    if (stick.getRawButtonReleased(1) && stick.getRawButtonReleased(4)){
+      _generator_lift.set(ControlMode.PercentOutput, 0);
+    }
+
+    //Set intake lift down
+    if (stick.getRawButtonPressed(3)){
+      _intake_lift.set(ControlMode.PercentOutput, 0.5);
+    }
+
+    if (stick.getRawButtonReleased(3)){
+      _intake_lift.set(ControlMode.PercentOutput, 0);
+    }
+    //Set intake lift up
+    if (stick.getRawButtonPressed(2)){
+      _intake_lift.set(ControlMode.PercentOutput, -0.5);
+    } 
+
+    if (stick.getRawButtonReleased(2)){
+      _intake_lift.set(ControlMode.PercentOutput, 0);
      } 
-    //Set intake motor speed
-     if (stick.getRawButtonPressed(5)){
+
+    //Set intake motor speed forwards
+    if (stick.getRawButtonPressed(5)){
       _intake_powercell.set(ControlMode.PercentOutput, 0.6);
-     }
+    }
 
-     if (stick.getRawButtonPressed(6)){
-      _intake_powercell.set(ControlMode.PercentOutput, 0.6);
-     }
+    if (stick.getRawButtonReleased(5)){
+      _intake_powercell.set(ControlMode.PercentOutput, 0);
+    }
+    
+    //Set intake motor speed backwards
+    if (stick.getRawButtonPressed(6)){
+      _intake_powercell.set(ControlMode.PercentOutput, -0.6);
+    }
 
-
-     //button.whenHeld(New ExampleCommand());,
-     //button.whenReleased(new ExampleCommand());
-
-    // robotDrive.arcadeDrive(stick.getY(), stick.getX());
+    if (stick.getRawButtonReleased(6)){
+      _intake_powercell.set(ControlMode.PercentOutput, 0);
+    }
   }
 
   /**
-   * This function is called periodically during test mode.
+   * If you want to test code, put it in this function, run test code from build.gradle, then enable test mode on driver station. 
    */
   @Override
   public void testPeriodic() {
