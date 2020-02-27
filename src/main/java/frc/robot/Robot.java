@@ -11,7 +11,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 
 import com.ctre.phoenix.motorcontrol.can.*;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+// import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.cameraserver.CameraServer;
 // import edu.wpi.first.wpilibj.buttons.*;
 
@@ -20,14 +21,14 @@ import edu.wpi.first.cameraserver.CameraServer;
 public class Robot extends TimedRobot {
   CameraServer server;
   //Intake and Generator Initialization
-  private WPI_TalonSRX _intake_powercell = new WPI_TalonSRX(0);
-  private WPI_TalonSRX _generator_lift = new WPI_TalonSRX(1);
-  private WPI_TalonSRX _intake_lift = new WPI_TalonSRX(2);
+  private TalonSRX _intake_powercell = new TalonSRX(0);
+  private TalonSRX _generator_lift = new TalonSRX(1);
+  private TalonSRX _intake_lift = new TalonSRX(2);
   //Drive Motor Initialization
-  private WPI_TalonSRX _right = new WPI_TalonSRX(3);
-  private WPI_TalonSRX _left = new WPI_TalonSRX(4);
+  private TalonSRX _right = new TalonSRX(3);
+  private TalonSRX _left = new TalonSRX(4);
   //Drivetrain Initialization
-  private DifferentialDrive robotDrive = new DifferentialDrive(_left, _right);
+  // private DifferentialDrive robotDrive = new DifferentialDrive(_left, _right);
   //Joystick
   private final Joystick stick = new Joystick(0);
   //Timer Initialization
@@ -62,15 +63,15 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     // Drive for 2 seconds
-    if (timer.get() < 5.0) {
-      robotDrive.tankDrive(0.6, 0.6); // drive forwards half speed
-    } else if (timer.get() < 5.5 ) {
-      robotDrive.tankDrive(0.6, -0.6);
-    } else if (timer.get() < 7.0 ) {
-      robotDrive.tankDrive(0.6, 0.6);
-    } else {
-      robotDrive.stopMotor(); // stop robot
-    }
+    // if (timer.get() < 5.0) {
+    //   robotDrive.tankDrive(0.6, 0.6); // drive forwards half speed
+    // } else if (timer.get() < 5.5 ) {
+    //   robotDrive.tankDrive(0.6, -0.6);
+    // } else if (timer.get() < 7.0 ) {
+    //   robotDrive.tankDrive(0.6, 0.6);
+    // } else {
+    //   robotDrive.stopMotor(); // stop robot
+    // }
   }
 
   /** 
@@ -78,6 +79,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
+    _right.setInverted(false);
   }
 
   /**
@@ -88,50 +90,39 @@ public class Robot extends TimedRobot {
 
     /**Utilizes values initialized in class Robot
     This command is the tankDrive, using the two TalonSRX motorcontrollers connected to the drive motors.**/
-     robotDrive.tankDrive((stick.getRawAxis(1)*(-0.62)), (stick.getRawAxis(5))*(-0.62));
-
+    //  robotDrive.tankDrive((stick.getRawAxis(1)*(-0.62)), (stick.getRawAxis(5))*(-0.62));
+    _left.set(ControlMode.PercentOutput, stick.getRawAxis(1));
+    _right.set(ControlMode.PercentOutput, (stick.getRawAxis(5)*-1));
      /**This command controls the lift:
      hold down the y button, there is a 4 second delay in going up and down.
      Remember to reset after every match.**/
 
 
 
-     if (stick.getRawButton(4)){
-      _generator_lift.set(0.6);
-     } else {
-       _generator_lift.set(0);
+     if (stick.getRawButtonPressed(4)){
+      _generator_lift.set(ControlMode.PercentOutput, 0.6);
      }
+     
      //To reset lift after matches
-    if (stick.getRawButton(1) && stick.getRawButton(4)){
-      _generator_lift.set(-0.6);
-    } else {
-      _generator_lift.set(0);
+    if (stick.getRawButtonPressed(1) && stick.getRawButtonPressed(4)){
+      _generator_lift.set(ControlMode.PercentOutput, -0.6);
     }
     //Set intake lift
-     if (stick.getRawButton(3)){
-      _intake_lift.set(0.6);
-     } else{
-       _intake_lift.set(0);
+     if (stick.getRawButtonPressed(3)){
+      _intake_lift.set(ControlMode.PercentOutput, 0.6);
      }
 
-     if (stick.getRawButton(2)){
-      _intake_lift.set(-0.7);
-     } else {
-      _intake_lift.set(0);
-     }
+     if (stick.getRawButtonPressed(2)){
+      _intake_lift.set(ControlMode.PercentOutput, -0.7);
+     } 
     //Set intake motor speed
-     if (stick.getRawButton(5)){
-      _intake_powercell.set(0.6);
-     } else {
-      _intake_powercell.set(0);
+     if (stick.getRawButtonPressed(5)){
+      _intake_powercell.set(ControlMode.PercentOutput, 0.6);
      }
 
-     if (stick.getRawButton(6)){
-      _intake_lift.set(0.8);
-     } else {
-       _intake_powercell.set(0);
+     if (stick.getRawButtonPressed(6)){
+      _intake_powercell.set(ControlMode.PercentOutput, 0.6);
      }
-
 
 
      //button.whenHeld(New ExampleCommand());,
