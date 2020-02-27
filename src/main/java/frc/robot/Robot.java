@@ -33,7 +33,7 @@ public class Robot extends TimedRobot {
   //Timer Initialization
   private final Timer timer = new Timer();
   //Marker Initialization :)
-  public final String marker = "up";
+  // public final String marker = "up";
 
 /**
 * This next function is run when the robot is first started up and should be
@@ -93,28 +93,43 @@ public class Robot extends TimedRobot {
      /**This command controls the lift:
      hold down the y button, there is a 4 second delay in going up and down.
      Remember to reset after every match.**/
+
+
+
      if (stick.getRawButton(4)){
-      _generator_lift.set(0.4);
+      _generator_lift.set(0.6);
+     } else {
+       _generator_lift.set(0);
      }
      //To reset lift after matches
-    if (stick.getRawButton(0) && stick.getRawButton(4)){
-      _generator_lift.set(-0.4);
+    if (stick.getRawButton(1) && stick.getRawButton(4)){
+      _generator_lift.set(-0.6);
+    } else {
+      _generator_lift.set(0);
     }
     //Set intake lift
      if (stick.getRawButton(3)){
-      _intake_lift.set(0.4);
+      _intake_lift.set(0.6);
+     } else{
+       _intake_lift.set(0);
      }
 
      if (stick.getRawButton(2)){
-      _intake_lift.set(-0.4);
+      _intake_lift.set(-0.7);
+     } else {
+      _intake_lift.set(0);
      }
     //Set intake motor speed
      if (stick.getRawButton(5)){
       _intake_powercell.set(0.6);
+     } else {
+      _intake_powercell.set(0);
      }
 
      if (stick.getRawButton(6)){
-      _intake_lift.set(-0.6);
+      _intake_lift.set(0.8);
+     } else {
+       _intake_powercell.set(0);
      }
 
 
@@ -130,6 +145,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+
   }
 }
 
