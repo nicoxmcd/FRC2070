@@ -91,6 +91,7 @@ public class Robot extends TimedRobot {
     /**Utilizes values initialized in class Robot
     This command is the tankDrive, using the two TalonSRX motorcontrollers connected to the drive motors.**/
     //  robotDrive.tankDrive((stick.getRawAxis(1)*(-0.62)), (stick.getRawAxis(5))*(-0.62));
+    
     _left.set(ControlMode.PercentOutput, (stick.getRawAxis(1)*-0.6));
     _right.set(ControlMode.PercentOutput, (stick.getRawAxis(5)*0.6));
 
