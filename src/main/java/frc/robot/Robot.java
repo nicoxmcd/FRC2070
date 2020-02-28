@@ -99,7 +99,7 @@ public class Robot extends TimedRobot {
      hold down the y button, there is a 4 second delay in going up and down.
      Remember to reset after every match.**/
      if (stick.getRawButtonPressed(4)){
-      _generator_lift.set(ControlMode.PercentOutput, 0.6);
+      _generator_lift.set(ControlMode.PercentOutput, 0.7);
      }
 
      if (stick.getRawButtonReleased(4)){
@@ -108,7 +108,7 @@ public class Robot extends TimedRobot {
      
      //To reset lift after matches, y and a buttons must be held at the same time
     if (stick.getRawButtonPressed(1) && stick.getRawButtonPressed(4)){
-      _generator_lift.set(ControlMode.PercentOutput, -0.6);
+      _generator_lift.set(ControlMode.PercentOutput, -0.7);
     }
 
     if (stick.getRawButtonReleased(1) && stick.getRawButtonReleased(4)){
@@ -117,7 +117,7 @@ public class Robot extends TimedRobot {
 
     //Set intake lift down
     if (stick.getRawButtonPressed(3)){
-      _intake_lift.set(ControlMode.PercentOutput, 0.5);
+      _intake_lift.set(ControlMode.PercentOutput, 0.7);
     }
 
     if (stick.getRawButtonReleased(3)){
@@ -125,7 +125,7 @@ public class Robot extends TimedRobot {
     }
     //Set intake lift up
     if (stick.getRawButtonPressed(2)){
-      _intake_lift.set(ControlMode.PercentOutput, -0.5);
+      _intake_lift.set(ControlMode.PercentOutput, -0.7);
     } 
 
     if (stick.getRawButtonReleased(2)){
