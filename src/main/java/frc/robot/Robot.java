@@ -134,7 +134,7 @@ public class Robot extends TimedRobot {
 
     //Set intake motor speed forwards
     if (stick.getRawButtonPressed(5)){
-      _intake_powercell.set(ControlMode.PercentOutput, 0.6);
+      _intake_powercell.set(ControlMode.PercentOutput, 1);
     }
 
     if (stick.getRawButtonReleased(5)){
@@ -143,7 +143,7 @@ public class Robot extends TimedRobot {
     
     //Set intake motor speed backwards
     if (stick.getRawButtonPressed(6)){
-      _intake_powercell.set(ControlMode.PercentOutput, -0.6);
+      _intake_powercell.set(ControlMode.PercentOutput, -1);
     }
 
     if (stick.getRawButtonReleased(6)){
