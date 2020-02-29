@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     //Drive for 5 seconds
-    if (timer.get() < 4.0) {
+    if (timer.get() < 3.0) {
       _left.set(ControlMode.PercentOutput, -0.6);
       _right.set(ControlMode.PercentOutput, 0.6); // drive forwards half speed
     } else {
